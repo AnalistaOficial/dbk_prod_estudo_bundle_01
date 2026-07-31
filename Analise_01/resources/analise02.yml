@@ -26,6 +26,12 @@ resources:
           notebook_task:
             notebook_path: ../src/cliente02.ipynb
 
+        - task_key: notebook_2
+          depends_on:
+            - task_key: notebook_1
+          notebook_task:
+            notebook_path: ../src/cliente03.ipynb
+
       environments:
         - environment_key: default
           spec:
