@@ -21,6 +21,7 @@ resources:
         - name: schema
           default: ${var.schema}
 
+      tasks:
         - task_key: notebook_task
           notebook_task:
             notebook_path: ../src/cliente02.ipynb
