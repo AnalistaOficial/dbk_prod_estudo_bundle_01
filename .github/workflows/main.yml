@@ -1,0 +1,38 @@
+name: Deploy to Databricks (Production)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Analise_01/**'
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate bundle
+        working-directory: ./Analise_01
+        run: databricks bundle validate -t prod
+
+      - name: Deploy bundle to production
+        working-directory: ./Analise_01
+        run: databricks bundle deploy -t prod
+
+      # Opcional: rodar um job logo após o deploy
+      #- name: Run job (opcional)
+      #  working-directory: ./Analise_01
+      #  run: databricks bundle run -t prod <nome_do_job>
