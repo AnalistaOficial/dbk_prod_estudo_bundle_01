@@ -35,4 +35,4 @@ jobs:
       # Opcional: rodar um job logo após o deploy
       - name: Run job (opcional)
         working-directory: ./Analise_01
-        run: databricks bundle run -t prod producao_analise02
+        run: databricks bundle run -t prod analise02
